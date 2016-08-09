@@ -38,12 +38,13 @@ gem 'simple_form'
 gem 'devise'
 # Rest client for api calls
 gem 'rest-client'
-# Pry
-gem 'pry-rails'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platform: :mri
+  # Pry
+  gem 'pry-rails'
 end
 
 group :development do
