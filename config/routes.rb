@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
 	resources :users, only: [:show] do
 		resources :movies, only: [:index, :show, :create, :destroy]
+		post 'favorite' => 'movies#favorite'
 	end
 
 	get 'search' => 'movies#search'

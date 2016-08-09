@@ -24,7 +24,15 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @movie = current_user.movies.build(movie_params)
+    @movie = Movie.new(movie_params)
+    if current_user.movies.any?{|movie| movie.imdb_id == @movie.imdb_id}
+      flash[:alert] = "You have already favorited this movie."
+    elsif Movie.all.any?{|movie| movie.imdb_id == @movie.imdb_id}
+      current_user.movies << @movie
+    else
+      @movie = current_user.movies.build(movie_params)
+    end
+
     if current_user.save
       redirect_to [current_user, @movie]
     else
