@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'movies/index'
+
+  get 'movies/show'
+
 	root 'welcome#index'
 	get 'welcome/index'
 	get 'welcome' => 'welcome#index'
