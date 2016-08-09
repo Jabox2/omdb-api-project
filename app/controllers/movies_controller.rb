@@ -31,7 +31,16 @@ class MoviesController < ApplicationController
       flash[:alert] = "Sorry, your movie could not be saved."
       redirect_to root_path
     end
+  end
 
+  def details
+    @movie = Movie.new
+    url = 'http://www.omdbapi.com/?i='
+    search = params[:imdb_id]
+    search += '&plot=full'
+
+    response = RestClient.get(url+search)
+    @movie_info = JSON.parse(response.body)
   end
 
   def show

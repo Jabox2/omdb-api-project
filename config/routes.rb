@@ -9,6 +9,6 @@ Rails.application.routes.draw do
 	end
 
 	get 'search' => 'movies#search'
-
+	get 'details/:imdb_id' => 'movies#details', as: 'details'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
