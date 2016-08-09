@@ -5,6 +5,21 @@ class MoviesController < ApplicationController
   end
 
   def search
+    @movie = Movie.new
+    session[:return_to] ||= request.referer
+    url = 'http://www.omdbapi.com/?s='
+    search = params[:q]
+
+    response = RestClient.get(url+search)
+
+    data = JSON.parse(response.body)
+    @results = data['Search']
+
+    if @results
+      render :results
+    else flash[:alert] = "No results for #{search}."
+      redirect_to welcome_path
+    end
   end
 
   def create

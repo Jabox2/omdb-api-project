@@ -1,0 +1,13 @@
+<h1>Search Results</h1>
+
+<% @results.each do |movie| %>
+	<%= movie['Title'] %><br>
+	<%= movie['Year'] %>
+
+	<%= simple_form_for [current_user, @movie] do |f| %>
+		<%= f.hidden_field :title, :value => movie['Title'] %>
+		<%= f.hidden_field :year, :value => movie['Year'] %>
+		<%= f.button :submit, 'Favorite' %>
+	<% end %>
+	<hr>
+<% end %>

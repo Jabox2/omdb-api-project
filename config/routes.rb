@@ -4,7 +4,10 @@ Rails.application.routes.draw do
 
 	get 'welcome' => 'welcome#index'
 
-	resources :movies, only: [:index, :show]
+	resources :users, only: [:show] do
+		resources :movies, only: [:index, :show, :create, :destroy]
+	end
+
 	get 'search' => 'movies#search'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
