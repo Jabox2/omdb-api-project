@@ -2,6 +2,7 @@ class MoviesController < ApplicationController
   before_action :find_movie, only: [:show, :destroy]
 
   def index
+    @movies = current_user.movies
   end
 
   def search
@@ -23,6 +24,14 @@ class MoviesController < ApplicationController
   end
 
   def create
+    @movie = current_user.movies.build(movie_params)
+    if current_user.save
+      redirect_to [current_user, @movie]
+    else
+      flash[:alert] = "Sorry, your movie could not be saved."
+      redirect_to root_path
+    end
+
   end
 
   def show
