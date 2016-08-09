@@ -1,12 +1,11 @@
 Rails.application.routes.draw do
-  get 'movies/index'
-
-  get 'movies/show'
-
+	devise_for :users
 	root 'welcome#index'
-	get 'welcome/index'
+
 	get 'welcome' => 'welcome#index'
 
-  devise_for :users
+	resources :movies, only: [:index, :show]
+	get 'search' => 'movies#search'
+
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

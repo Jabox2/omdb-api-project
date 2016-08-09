@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :find_movie, only [:show, :destroy]
+  before_action :find_movie, only: [:show, :destroy]
 
   def index
   end

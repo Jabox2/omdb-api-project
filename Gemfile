@@ -36,6 +36,10 @@ gem 'twitter-bootstrap-rails'
 gem 'simple_form'
 # Devise
 gem 'devise'
+# Rest client for api calls
+gem 'rest-client'
+# Pry
+gem 'pry-rails'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
