@@ -25,9 +25,11 @@ class MoviesController < ApplicationController
 
   def create
     @movie = Movie.new(movie_params)
-    if current_user.movies.any?{|movie| movie.imdb_id == @movie.imdb_id}
+    imdb_id_temp = @movie.imdb_id
+    if current_user.movies.any?{|movie| movie.imdb_id == imdb_id_temp }
       flash[:alert] = "You have already favorited this movie."
     elsif Movie.all.any?{|movie| movie.imdb_id == @movie.imdb_id}
+      @movie = Movie.find_by(imdb_id: imdb_id_temp)
       current_user.movies << @movie
     else
       @movie = current_user.movies.build(movie_params)
