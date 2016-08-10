@@ -1,4 +1,5 @@
 <h1><%= @movie.title %></h1>
 <p>Year: <%= @movie.year %></p>
 <p>Plot: <%= @movie.plot %></p>
-<%= link_to 'Back', :back %>
+<p><%= link_to 'Back', :back %> | 
+<%= link_to 'Unfavorite', user_movie_path, method: :delete %></p>

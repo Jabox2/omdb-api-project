@@ -57,6 +57,11 @@ class MoviesController < ApplicationController
   end
 
   def destroy
+    if current_user.movies.any?{|movie| movie == @movie }
+      current_user.movies.delete(@movie)
+    end
+    flash[:alert] = "Movie removed from your favorites."
+    redirect_to user_movies_path(current_user)
   end
 
   private
