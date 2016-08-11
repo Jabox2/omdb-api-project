@@ -4,10 +4,16 @@ Rails.application.routes.draw do
 
 	get 'welcome' => 'welcome#index'
 
-	resources :users, only: [:show] do
-		resources :movies, only: [:index, :show, :create, :destroy]
-		post 'favorite' => 'movies#favorite'
-	end
+#	resources :users, only: [:show] do
+#		resources :movies, only: [:index, :show, :create, :destroy]
+#		resources :reviews, only: [:create, :edit, :destroy]
+#	end
+
+  resources :users, only: [:show] do
+    resources :movies, only: [:index, :show, :create, :destroy], shallow: true do
+      resources :reviews, only: [:create, :edit, :update, :destroy], shallow: true
+    end
+  end
 
 	get 'search' => 'movies#search'
 	get 'details/:imdb_id' => 'movies#details', as: 'details'

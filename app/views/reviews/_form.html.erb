@@ -1,0 +1,6 @@
+<h3>Add Review</h3>
+
+<%= simple_form_for [@movie, @review] do |f| %>
+   <%= f.input :body, label: false %>
+   <%= f.button :submit %>
+<%end%>

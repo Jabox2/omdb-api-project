@@ -1,6 +1,6 @@
 <h1>Movies</h1>
 <% @movies.each do |movie| %>
-	<p><%= link_to movie.title, [current_user, movie] %> | <%= movie.year %></p>
+	<p><%= link_to movie.title, movie %> | <%= movie.year %></p>
 <% end %>
 
 <%= link_to 'Back', :back %>

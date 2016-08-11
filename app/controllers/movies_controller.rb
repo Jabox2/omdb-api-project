@@ -27,12 +27,14 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
     imdb_id_temp = @movie.imdb_id
     if current_user.movies.any?{|movie| movie.imdb_id == imdb_id_temp }
-      flash[:alert] = "You have already favorited this movie."
-    elsif Movie.all.any?{|movie| movie.imdb_id == @movie.imdb_id}
+      flash[:notice] = "You have already favorited this movie."
+    elsif Movie.all.any?{|movie| movie.imdb_id == imdb_id_temp}
       @movie = Movie.find_by(imdb_id: imdb_id_temp)
       current_user.movies << @movie
+      flash[:notice] = "Movie favorited."
     else
       @movie = current_user.movies.build(movie_params)
+      flash[:notice] = "Movie added to database and favorited."
     end
 
     if current_user.save
@@ -54,13 +56,17 @@ class MoviesController < ApplicationController
   end
 
   def show
+    @review = Review.new
+    @edit = params[:edit]
   end
 
   def destroy
-    if current_user.movies.any?{|movie| movie == @movie }
-      current_user.movies.delete(@movie)
+    if current_user.movies.delete(@movie)
+      flash[:alert] = "Movie removed from your favorites."
+    else
+      flash[:alert] = "Failed to remove from your favorites."
     end
-    flash[:alert] = "Movie removed from your favorites."
+    
     redirect_to user_movies_path(current_user)
   end
 

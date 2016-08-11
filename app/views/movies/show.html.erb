@@ -1,5 +1,31 @@
-<h1><%= @movie.title %></h1>
-<p>Year: <%= @movie.year %></p>
-<p>Plot: <%= @movie.plot %></p>
-<p><%= link_to 'Back', :back %> | 
-<%= link_to 'Unfavorite', user_movie_path, method: :delete %></p>
+<div class='row'>
+	<div class='col-md-8'>
+		<h1><%= @movie.title %></h1>
+		<p>Year: <%= @movie.year %></p>
+		<p>Plot: <%= @movie.plot %></p>
+		<p><%= link_to 'Back', :back %> | 
+		<%= link_to 'Unfavorite', movie_path, method: :delete %></p><br>
+		<% if !( @movie.reviews.any?{|review| review.user_id.to_i == current_user.id } ) %>
+			<h3>Add Review</h3>
+			<%= render '/reviews/form' %>
+		<% end %>
+	</div>
+	<div class='col-md-4'>
+	<h1>Reviews</h1>
+	<% @movie.reviews.each do |review| %>
+		<% if review.user.id.to_i == current_user.id %>
+			<% if @edit == 'true' %>
+				<%= render '/reviews/form' %>
+			<% else %>
+				<p><%= review.body %></p>
+				<%= link_to 'Edit', edit_review_path(review) %> | 
+				<%= link_to 'Delete', review, method: :delete, data: {confirm: 'Are you sure?'} %>
+			<% end %>
+		<% else %>
+			<p><%= review.body %></p>
+		<% end %>
+		<hr>
+	<% end %>
+
+	</div>
+</div>
