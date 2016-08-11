@@ -38,7 +38,7 @@ class MoviesController < ApplicationController
     end
 
     if current_user.save
-      redirect_to [current_user, @movie]
+      redirect_to @movie
     else
       flash[:alert] = "Sorry, your movie could not be saved."
       redirect_to root_path
