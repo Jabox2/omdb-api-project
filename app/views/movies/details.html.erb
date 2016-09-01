@@ -1,5 +1,13 @@
 <h1><%= @movie_info['Title'] %></h1>
 <p>Year: <%= @movie_info['Year'] %></p>
 <p>Plot: <%= @movie_info['Plot'] %></p>
+<% if user_signed_in? %>
+	<% if current_user.movies.any?{ |movie| movie.imdb_id == @movie_info['imdbID'] } %>
+		<%= link_to "Go to movie", movie_path(Movie.select{ |movie| movie.imdb_id == @movie_info['imdbID'] }.first) %>
+	<% else %>
+		<%= render 'movies/favorite' %>
+	<% end %>
+<% else %>
 <%= render 'movies/favorite' %>
+<% end %>
 <%= link_to 'Back', :back %>

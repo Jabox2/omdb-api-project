@@ -1,8 +1,9 @@
 class MoviesController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :search, :details, :show]
   before_action :find_movie, only: [:show, :destroy]
 
   def index
-    @movies = current_user.movies
+    @movies = current_user.movies.sort{ |x, y| x.title <=> y.title }
   end
 
   def search

@@ -1,4 +1,6 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!
+  
   def create
     @movie = Movie.find(params[:movie_id])
     if !( @movie.reviews.any?{|review| review.user_id.to_i == current_user.id } )

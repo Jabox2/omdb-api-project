@@ -10,10 +10,12 @@ Rails.application.routes.draw do
 #	end
 
   resources :users, only: [:show] do
-    resources :movies, only: [:index, :show, :create, :destroy], shallow: true do
+    resources :movies, only: [:index, :show, :destroy], shallow: true do
       resources :reviews, only: [:create, :edit, :update, :destroy], shallow: true
     end
   end
+
+  resources :movies, only: [:create]
 
 	get 'search' => 'movies#search'
 	get 'details/:imdb_id' => 'movies#details', as: 'details'
