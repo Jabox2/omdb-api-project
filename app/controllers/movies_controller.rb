@@ -1,5 +1,5 @@
 class MoviesController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :search, :details, :show]
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :find_movie, only: [:show, :destroy]
 
   def index
