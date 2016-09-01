@@ -3,7 +3,7 @@
 		<h1><%= @movie.title %></h1>
 		<p>Year: <%= @movie.year %></p>
 		<p>Plot: <%= @movie.plot %></p>
-		<p><%= link_to 'Back', :back %> | 
+		<p><%= link_to 'Back', 'javascript:history.go(-1);' %> | 
 		<%= link_to 'Unfavorite', movie_path, method: :delete %></p><br>
 		<% if !( @movie.reviews.any?{|review| review.user_id.to_i == current_user.id } ) %>
 			<h3>Add Review</h3>
