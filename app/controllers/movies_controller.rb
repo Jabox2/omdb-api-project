@@ -27,6 +27,7 @@ class MoviesController < ApplicationController
     @movie = Movie.new(movie_params)
     imdb_id_temp = @movie.imdb_id
     if current_user.movies.any?{|movie| movie.imdb_id == imdb_id_temp }
+      @movie = Movie.find_by(imdb_id: imdb_id_temp)
       flash[:notice] = "You have already favorited this movie."
     elsif Movie.all.any?{|movie| movie.imdb_id == imdb_id_temp}
       @movie = Movie.find_by(imdb_id: imdb_id_temp)
